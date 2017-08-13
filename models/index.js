@@ -17,5 +17,5 @@ const sync = () => {
 module.exports = {
     sync,
     seed,
-    models: { User }
+    models: { User, Award }
 }

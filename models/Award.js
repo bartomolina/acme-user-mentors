@@ -12,11 +12,11 @@ const Award = db.define('award', {
                 options.individualHooks = true
                 return options
             },
-            afterDestroy: (award) => {
-                Award.findAll({ where: { userId: award.userId } })
+            beforeDestroy: (award) => {
+                return Award.findAll({ where: { userId: award.userId } })
                     .then(awards => {
-                        if (awards.length === 1) {
-                            db.models.user.update({ mentorId: null }, { where: { mentorId: award.userId } })
+                        if (awards.length === 2) {
+                            return db.models.user.update({ mentorId: null }, { where: { mentorId: award.userId } })
                         }
                     })
             }
