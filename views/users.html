@@ -39,6 +39,13 @@ endblock %} {% block content %}
                 <div class="label label-default">
                     Mentored by: {{ user.mentor.name }}
                 </div>
+                <p></p>
+                <form action="/users/{{ user.id }}?_method=PUT" method="POST">
+                    <input type="hidden" name="mentorId" value="">
+                    <button class="btn btn-warning">
+                        Remove mentor
+                    </button>
+                </form>
                 {% elif viewModel.mentors.length && !(viewModel.mentors.length === 1 && viewModel.mentors[0].id == user.id)  %}
                 <form action="/users/{{ user.id }}?_method=PUT" method="POST" class="well">
                     <div class="form-group">

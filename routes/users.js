@@ -35,6 +35,7 @@ router.delete('/:id', (req, res, next) => {
 
 //UPDATE
 router.put('/:id', (req, res, next) => {
+    req.body.mentorId = req.body.mentorId.trim() || null
     User.updateUserFromRequestBody(req.params.id, req.body)
         .then(redirect(res))
         .catch(next);
