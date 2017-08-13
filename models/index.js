@@ -4,7 +4,7 @@ const User = require('./User')
 const Award = require('./Award')
 
 User.belongsTo(User, { as: 'mentor' })
-User.hasMany(Award, { as: 'awards' })
+User.hasMany(Award)
 
 const seed = () => {
     return require('./seed')(User, Award)

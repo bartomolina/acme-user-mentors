@@ -13,8 +13,7 @@ const User = db.define('user', {
 User.findUsersViewModel = () => {
     return User.findAll({
         include: [{
-            model: db.models.award,
-            as: 'awards'
+            model: db.models.award
         }, {
             model: User,
             as: 'mentor'
