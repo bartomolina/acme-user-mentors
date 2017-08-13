@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>{% block header %}{% endblock %}</h1>
+        <ul class="nav nav-tabs">
+            <li class="nav-item{% if tab === "home" %} active{% endif %}">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item{% if tab === "users" %} active{% endif %}">
+                <a class="nav-link" href="/users">Users</a>
+            </li>
+        </ul>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

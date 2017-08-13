@@ -1,0 +1,61 @@
+{% extends 'layout.html' %} {% block title %}ACME User Mentors - Users{% endblock %} {% block header %}ACME Users Mentors{%
+endblock %} {% block content %}
+<h2>Users</h2>
+<div class="well">
+    <form action="/users" method="POST">
+        <div class="form-group">
+            <input class="form-control" name="name" placeholder="name" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Add user</button>
+        </div>
+    </form>
+</div>
+<div class="row">
+    {% for user in viewModel.users %}
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{ user.name }}
+                <form action="/users/{{ user.id }}?_method=DELETE" method="POST">
+                    <button class="btn btn-danger btn-xs">Delete</button>
+                </form>
+            </div>
+            <div class="panel-body">
+                <form action="/users/{{ user.id }}/awards" method="POST">
+                    <button class="btn btn-primary">Create an award</button>
+                </form>
+                <ul>
+                    {% for award in user.awards %}
+                    <li>
+                        {{ award.title }}
+                    </li>
+                    <form action="/users/{{ user.id }}/awards/{{ award.id }}?_method=DELETE" method="POST">
+                        <button class="btn btn-warning btn-xs">Delete award</button>
+                    </form>
+                    {% endfor %}
+                </ul>
+                {% if user.mentor %}
+                <div class="label label-default">
+                    Mentored by: {{ user.mentor.name }}
+                </div>
+                {% elif viewModel.mentors.length && !(viewModel.mentors.length === 1 && viewModel.mentors[0].id == user.id)  %}
+                <form action="/users/{{ user.id }}?_method=PUT" method="POST" class="well">
+                    <div class="form-group">
+                        <select class="form-control" name="mentorId">
+                            {% for mentor in viewModel.mentors %}
+                            {% if mentor.id != user.id %}
+                            <option value="{{ mentor.id }}">{{ mentor.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-sm">Set as mentor</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
