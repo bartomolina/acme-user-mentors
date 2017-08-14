@@ -28,19 +28,19 @@ User.findUsersViewModel = () => {
 }
 
 User.destroyById = (id) => {
-    return User.destroy({ where: { id: id } })
+    return User.destroy({ where: { id } })
 }
 
 User.updateUserFromRequestBody = (id, body) => {
-    return User.update({ mentorId: body.mentorId }, { where: { id: id } })
+    return User.update({ mentorId: body.mentorId }, { where: { id } })
 }
 
-User.generateAward = (id, body) => {
-    return db.models.award.create({ title: faker.company.catchPhrase(), userId: id })
+User.generateAward = (userId, body) => {
+    return db.models.award.create({ title: faker.company.catchPhrase(), userId })
 }
 
-User.removeAward = (userId, awardId) => {
-    return db.models.award.destroy({ where: { id: awardId }})
+User.removeAward = (userId, id) => {
+    return db.models.award.destroy({ where: { id } })
 }
 
 module.exports = User

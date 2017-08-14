@@ -9,12 +9,8 @@ module.exports = (User, Award) => {
         { name: 'Lisa', mentorId: 2 },
         { name: 'Maggie', mentorId: 2 }
     ])
-        .then(([_homer, _marge, _bart, _lisa, _maggie]) => {
-            homer = _homer
-            marge = _marge
-            bart = _bart
-            lisa = _lisa
-            maggie = _maggie
+        .then(users => {
+            [homer, marge, bart, lisa, maggie] = users
 
             return Award.bulkCreate([
                 { title: faker.company.catchPhrase(), userId: 1 },

@@ -31,7 +31,7 @@ describe('Models', () => {
                     .then(() => models.User.findAll())
                     .then(users => {
                         expect(users.length).to.equal(4)
-                        expect(users.filter((val) => 
+                        expect(users.filter((val) =>
                             val.id === 2
                         )).to.be.empty
                     })
@@ -57,7 +57,7 @@ describe('Models', () => {
                         return models.User.generateAward(1, { title: 'new award' })
                     })
                     .then(() => models.User.findById(1, { include: [{ model: models.Award, as: 'awards' }] }))
-                    .then(user => 
+                    .then(user =>
                         expect(user.awards.length).to.equal(initialAwardCount + 1)
                     )
             }
@@ -73,24 +73,24 @@ describe('Models', () => {
                         initialAwardCount = user.awards.length
                         return models.User.removeAward(1, 1)
                     })
-                    .then(user => 
+                    .then(user =>
                         models.User.removeAward(1, 2)
                     )
             })
 
             it('removes an award from a user', () => {
                 return models.User.findById(1, { include: [{ model: models.Award, as: 'awards' }] })
-                .then(user => 
-                    expect(user.awards.length).to.equal(initialAwardCount - 2)
-                )
+                    .then(user =>
+                        expect(user.awards.length).to.equal(initialAwardCount - 2)
+                    )
             }
             )
 
             it('removes the link from all the mentorees', () => {
                 return models.User.findAll({ where: { mentorId: 1 } })
-                .then(users => 
-                    expect(users).to.be.empty
-                )
+                    .then(users =>
+                        expect(users).to.be.empty
+                    )
             })
         })
     })
